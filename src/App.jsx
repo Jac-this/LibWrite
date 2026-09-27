@@ -521,7 +521,8 @@ function ArticlePage({ article, onBack, onOpenArticle }) {
 function App() {
   const [view, setView] = useState('home')
   const [selectedArticle, setSelectedArticle] = useState(null)
-  const [selectedCategory, setSelectedCategory] = useState(null)\n  const [writerDraft, setWriterDraft] = useState(null)
+  const [selectedCategory, setSelectedCategory] = useState(null)
+  const [writerDraft, setWriterDraft] = useState(null)
 
   const openExplore = () => {
     setSelectedArticle(null)
