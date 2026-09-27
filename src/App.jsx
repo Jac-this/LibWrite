@@ -1,121 +1,172 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
 
+const featured = [
+  {
+    category: 'PHILOSOPHY & IDEAS',
+    title: 'Can a country forget itself?',
+    excerpt: 'A reflection on memory, identity, and the stories a people choose to preserve.',
+    author: 'Emmanuel K. Doe',
+    read: '8 min read',
+  },
+  {
+    category: 'HISTORY',
+    title: 'The things our grandparents knew',
+    excerpt: 'What survives when knowledge lives in people before it ever reaches a page.',
+    author: 'Sarah T. Kollie',
+    read: '6 min read',
+  },
+  {
+    category: 'CULTURE',
+    title: 'When a language becomes a memory',
+    excerpt: 'On language, inheritance, and what we lose when a generation stops speaking.',
+    author: 'James M. Cooper',
+    read: '9 min read',
+  },
+]
+
+const publications = [
+  { name: 'The Liberian Review', detail: 'Essays · History · Public Life' },
+  { name: 'Campus Liberia', detail: 'Students · Education · Ideas' },
+  { name: 'The Diaspora Desk', detail: 'Identity · Society · Home' },
+]
+
+function Arrow() {
+  return <span aria-hidden="true">↗</span>
+}
+
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <main className="site">
+      <header className="nav">
+        <a className="brand" href="/">
+          <span>LIB</span>WRITE
+          <small>Liberian voices. Global ideas.</small>
+        </a>
+
+        <nav className="nav-links" aria-label="Main navigation">
+          <a href="#discover">Explore</a>
+          <a href="#publications">Publications</a>
+          <a href="#about">About</a>
+        </nav>
+
+        <div className="nav-actions">
+          <a className="signin" href="#signin">Sign in</a>
+          <a className="write-button" href="#write">Write <Arrow /></a>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
+      </header>
+
+      <section className="hero">
+        <div className="hero-texture" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+          <span />
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
+        <p className="eyebrow">A home for Liberian thought</p>
+        <h1>Write what should<br /><em>not be forgotten.</em></h1>
+        <p className="hero-copy">
+          A place to write, publish, read, and discover ideas, stories, and
+          conversations from Liberia and the diaspora.
+        </p>
+        <div className="hero-actions">
+          <a className="primary-button" href="#discover">Explore writing <Arrow /></a>
+          <a className="text-button" href="#write">Start writing</a>
+        </div>
+        <p className="hero-note">From the classroom to the marketplace. From Monrovia to the world.</p>
       </section>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
+      <section className="manifesto" id="about">
+        <div className="section-marker">01 <span>WHY LIBWRITE</span></div>
+        <div className="manifesto-grid">
+          <h2>Before we learned to publish,<br /><span>we learned to remember.</span></h2>
+          <div>
+            <p>
+              A grandmother&apos;s story. A mother&apos;s lesson. A teacher&apos;s
+              explanation. A student&apos;s question. A community&apos;s memory.
+            </p>
+            <p>
+              Some knowledge never began in a classroom. Much of it was carried,
+              protected, and passed on by people whose names never appeared in a book.
+            </p>
+            <p className="gold-line">LibWrite gives those voices somewhere to live.</p>
+          </div>
         </div>
       </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      <section className="discover" id="discover">
+        <div className="section-heading">
+          <div>
+            <div className="section-marker">02 <span>THE READING ROOM</span></div>
+            <h2>What is Liberia<br />thinking about?</h2>
+          </div>
+          <a href="#all-writing">View all writing <Arrow /></a>
+        </div>
+
+        <div className="article-grid">
+          {featured.map((article, index) => (
+            <article className={index === 0 ? 'article-card featured-card' : 'article-card'} key={article.title}>
+              <div className="article-meta"><span>{article.category}</span><span>{article.read}</span></div>
+              <h3>{article.title}</h3>
+              <p>{article.excerpt}</p>
+              <div className="article-author">
+                <span className="author-mark">{article.author.charAt(0)}</span>
+                <span>By {article.author}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="topics">
+          <span>Explore by subject</span>
+          {['Philosophy & Ideas', 'History', 'Culture', 'Education', 'Religion', 'Science & Technology', 'Poetry'].map((topic) => (
+            <a href="#topic" key={topic}>{topic}</a>
+          ))}
+        </div>
+      </section>
+
+      <section className="publications" id="publications">
+        <div className="section-marker">03 <span>PUBLICATIONS</span></div>
+        <div className="publication-intro">
+          <h2>Ideas have<br /><em>communities.</em></h2>
+          <p>Follow publications, journals, campus voices, and independent collections shaping conversations around Liberia.</p>
+        </div>
+        <div className="publication-list">
+          {publications.map((publication, index) => (
+            <a href="#publication" className="publication" key={publication.name}>
+              <span className="pub-number">0{index + 1}</span>
+              <span>
+                <strong>{publication.name}</strong>
+                <small>{publication.detail}</small>
+              </span>
+              <Arrow />
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="writer-cta" id="write">
+        <div className="cta-texture" aria-hidden="true" />
+        <p className="eyebrow">For writers</p>
+        <h2>Your story does not have<br />to be famous to be <em>worth preserving.</em></h2>
+        <p>Write what you know. Question what you inherited. Teach what you have learned. Leave something for someone who comes after you.</p>
+        <a className="gold-button" href="#editor">Start writing <Arrow /></a>
+      </section>
+
+      <footer>
+        <div className="footer-brand">
+          <strong>LIBWRITE</strong>
+          <span>Liberian voices. Global ideas.</span>
+        </div>
+        <div className="footer-links">
+          <a href="#explore">Explore</a>
+          <a href="#publications">Publications</a>
+          <a href="#writers">Writers</a>
+          <a href="#about">About</a>
+          <a href="#guidelines">Community Guidelines</a>
+        </div>
+        <p>Liberia has always had something to say.<br /><strong>LibWrite is making room for it.</strong></p>
+      </footer>
+    </main>
   )
 }
 
