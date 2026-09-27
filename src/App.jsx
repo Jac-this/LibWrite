@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react'
 import './App.css'
 
 const featured = [
@@ -7,6 +8,13 @@ const featured = [
     excerpt: 'A reflection on memory, identity, and the stories a people choose to preserve.',
     author: 'Emmanuel K. Doe',
     read: '8 min read',
+    location: 'Monrovia',
+    date: 'Sep 24, 2026',
+    body: [
+      'A country can lose things without losing them completely. A name can disappear from a book and still live in a grandmother’s memory. A language can become less common and still shape the way a family understands home.',
+      'Memory is not only what is written down. It is also what is repeated, practiced, questioned, and carried from one person to another.',
+      'Perhaps this is why forgetting is more complicated than the absence of knowledge. Sometimes we forget because no one made room for what we knew. Sometimes we remember because someone decided that a story was worth carrying.',
+    ],
   },
   {
     category: 'HISTORY',
@@ -14,6 +22,13 @@ const featured = [
     excerpt: 'What survives when knowledge lives in people before it ever reaches a page.',
     author: 'Sarah T. Kollie',
     read: '6 min read',
+    location: 'Harper',
+    date: 'Sep 22, 2026',
+    body: [
+      'There are things our grandparents knew that were never written in textbooks. They knew which path became difficult after heavy rain. They knew how a particular plant was used, which songs belonged to which occasions, and which stories should be told carefully.',
+      'This kind of knowledge is easy to overlook because it does not always arrive with a certificate or a citation. Yet it can shape a family, a community, and even a person’s understanding of the world.',
+      'The question is not whether this knowledge belongs beside formal education. It is how we preserve the knowledge that exists outside its walls.',
+    ],
   },
   {
     category: 'CULTURE',
@@ -21,6 +36,55 @@ const featured = [
     excerpt: 'On language, inheritance, and what we lose when a generation stops speaking.',
     author: 'James M. Cooper',
     read: '9 min read',
+    location: 'New York',
+    date: 'Sep 20, 2026',
+    body: [
+      'A language can disappear quietly. There may be no single day when everyone stops speaking it. Instead, one generation speaks it less, another understands it but answers in a different language, and eventually a word survives mostly as a memory.',
+      'But language is more than vocabulary. It carries humor, relationships, ways of greeting, ways of grieving, and ways of seeing the world.',
+      'When a language becomes a memory, the loss is not only linguistic. It raises a deeper question about what parts of ourselves can survive when the words that once carried them become unfamiliar.',
+    ],
+  },
+  {
+    category: 'EDUCATION',
+    title: 'What does a good teacher leave behind?',
+    excerpt: 'Beyond lessons and examinations, teaching is also the work of changing how another person sees.',
+    author: 'Martha K. Johnson',
+    read: '7 min read',
+    location: 'Harare',
+    date: 'Sep 18, 2026',
+    body: [
+      'A teacher leaves behind more than notes on a board. Sometimes it is a question a student remembers years later. Sometimes it is the confidence to ask another question.',
+      'Education is often measured by what a student can reproduce. But some of its deepest effects cannot be measured so easily. A teacher can change the direction of a life simply by taking an idea seriously.',
+      'Perhaps teaching is partly the art of leaving something behind that continues working after the lesson has ended.',
+    ],
+  },
+  {
+    category: 'RELIGION & SPIRITUALITY',
+    title: 'The silence after the prayer',
+    excerpt: 'What happens when faith asks us to remain present without receiving an immediate answer?',
+    author: 'David K. Mensah',
+    read: '5 min read',
+    location: 'Kumasi',
+    date: 'Sep 16, 2026',
+    body: [
+      'Prayer is often imagined as speech directed toward God. But there is another part of prayer that is harder to describe: the silence that follows.',
+      'Silence can feel empty when we expect an answer. Yet it can also become a space in which a person notices what words were hiding.',
+      'The experience raises a question that belongs not only to theology but to ordinary human life: can presence still matter when nothing seems to happen?',
+    ],
+  },
+  {
+    category: 'POETRY',
+    title: 'A house made of voices',
+    excerpt: 'A poem about inheritance, distance, and the people who remain with us through what they taught us.',
+    author: 'Naomi T. Cooper',
+    read: '3 min read',
+    location: 'Robertsport',
+    date: 'Sep 14, 2026',
+    body: [
+      'Some houses are built from timber and stone. Others are built from the sentences people repeat until they become part of us.',
+      'A mother’s warning. A grandfather’s joke. A teacher’s question. A prayer whispered before sleep. We carry these things long after we leave the rooms where we first heard them.',
+      'Maybe inheritance is not always something we receive. Sometimes it is something we continue.',
+    ],
   },
 ]
 
@@ -30,31 +94,45 @@ const publications = [
   { name: 'The Diaspora Desk', detail: 'Identity · Society · Home' },
 ]
 
+const categories = [
+  'All',
+  'Philosophy & Ideas',
+  'History',
+  'Culture',
+  'Education',
+  'Religion & Spirituality',
+  'Science & Technology',
+  'Poetry',
+]
+
 function Arrow() {
   return <span aria-hidden="true">↗</span>
 }
 
-function App() {
+function ArticleCard({ article, featured: isFeatured, onOpen }) {
   return (
-    <main className="site">
-      <header className="nav">
-        <a className="brand" href="/">
-          <span>LIB</span>WRITE
-          <small>Writing with roots. Ideas without borders.</small>
-        </a>
+    <button
+      className={isFeatured ? 'article-card featured-card' : 'article-card'}
+      onClick={() => onOpen(article)}
+      type="button"
+    >
+      <div className="article-meta">
+        <span>{article.category}</span>
+        <span>{article.read}</span>
+      </div>
+      <h3>{article.title}</h3>
+      <p>{article.excerpt}</p>
+      <div className="article-author">
+        <span className="author-mark">{article.author.charAt(0)}</span>
+        <span>By {article.author}</span>
+      </div>
+    </button>
+  )
+}
 
-        <nav className="nav-links" aria-label="Main navigation">
-          <a href="#discover">Explore</a>
-          <a href="#publications">Publications</a>
-          <a href="#about">About</a>
-        </nav>
-
-        <div className="nav-actions">
-          <a className="signin" href="#signin">Sign in</a>
-          <a className="write-button" href="#write">Write <Arrow /></a>
-        </div>
-      </header>
-
+function Home({ onExplore, onOpenArticle }) {
+  return (
+    <>
       <section className="hero">
         <div className="hero-texture" aria-hidden="true">
           <span />
@@ -69,7 +147,7 @@ function App() {
           conversations — wherever they begin.
         </p>
         <div className="hero-actions">
-          <a className="primary-button" href="#discover">Explore writing <Arrow /></a>
+          <button className="primary-button" onClick={onExplore} type="button">Explore writing <Arrow /></button>
           <a className="text-button" href="#write">Start writing</a>
         </div>
         <p className="hero-note">From the classroom to the marketplace. From one place to another.</p>
@@ -80,14 +158,8 @@ function App() {
         <div className="manifesto-grid">
           <h2>Before we learned to publish,<br /><span>we learned to remember.</span></h2>
           <div>
-            <p>
-              A grandmother&apos;s story. A mother&apos;s lesson. A teacher&apos;s
-              explanation. A student&apos;s question. A community&apos;s memory.
-            </p>
-            <p>
-              Some knowledge never began in a classroom. Much of it was carried,
-              protected, and passed on by people whose names never appeared in a book.
-            </p>
+            <p>A grandmother&apos;s story. A mother&apos;s lesson. A teacher&apos;s explanation. A student&apos;s question. A community&apos;s memory.</p>
+            <p>Some knowledge never began in a classroom. Much of it was carried, protected, and passed on by people whose names never appeared in a book.</p>
             <p className="gold-line">LibWrite gives those voices somewhere to live.</p>
           </div>
         </div>
@@ -99,27 +171,17 @@ function App() {
             <div className="section-marker">02 <span>THE READING ROOM</span></div>
             <h2>What are we<br />thinking about?</h2>
           </div>
-          <a href="#all-writing">View all writing <Arrow /></a>
+          <button onClick={onExplore} type="button">View all writing <Arrow /></button>
         </div>
-
         <div className="article-grid">
-          {featured.map((article, index) => (
-            <article className={index === 0 ? 'article-card featured-card' : 'article-card'} key={article.title}>
-              <div className="article-meta"><span>{article.category}</span><span>{article.read}</span></div>
-              <h3>{article.title}</h3>
-              <p>{article.excerpt}</p>
-              <div className="article-author">
-                <span className="author-mark">{article.author.charAt(0)}</span>
-                <span>By {article.author}</span>
-              </div>
-            </article>
+          {featured.slice(0, 3).map((article, index) => (
+            <ArticleCard key={article.title} article={article} featured={index === 0} onOpen={onOpenArticle} />
           ))}
         </div>
-
         <div className="topics">
           <span>Explore by subject</span>
-          {['Philosophy & Ideas', 'History', 'Culture', 'Education', 'Religion', 'Science & Technology', 'Poetry'].map((topic) => (
-            <a href="#topic" key={topic}>{topic}</a>
+          {categories.slice(1).map((topic) => (
+            <button key={topic} type="button" onClick={onExplore}>{topic}</button>
           ))}
         </div>
       </section>
@@ -151,21 +213,174 @@ function App() {
         <p>Write what you know. Question what you inherited. Teach what you have learned. Leave something for someone who comes after you.</p>
         <a className="gold-button" href="#editor">Start writing <Arrow /></a>
       </section>
+    </>
+  )
+}
 
-      <footer>
-        <div className="footer-brand">
-          <strong>LIBWRITE</strong>
-          <span>Liberian voices. Global ideas.</span>
+function Explore({ onOpenArticle }) {
+  const [query, setQuery] = useState('')
+  const [category, setCategory] = useState('All')
+
+  const filtered = useMemo(() => {
+    const normalized = query.trim().toLowerCase()
+    return featured.filter((article) => {
+      const matchesCategory = category === 'All' || article.category === category.toUpperCase()
+      const matchesQuery = !normalized || [article.title, article.excerpt, article.author, article.location, article.category]
+        .join(' ')
+        .toLowerCase()
+        .includes(normalized)
+      return matchesCategory && matchesQuery
+    })
+  }, [category, query])
+
+  return (
+    <section className="explore-page">
+      <div className="explore-header">
+        <div>
+          <div className="section-marker">READING ROOM <span>EXPLORE</span></div>
+          <h1>Find something<br /><em>worth reading.</em></h1>
+          <p>Ideas, stories, questions, and observations from different places and different lives.</p>
         </div>
-        <div className="footer-links">
-          <a href="#explore">Explore</a>
+        <div className="search-box">
+          <label htmlFor="article-search">Search writing</label>
+          <input
+            id="article-search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search articles, writers, places..."
+          />
+        </div>
+      </div>
+
+      <div className="category-bar">
+        {categories.map((item) => (
+          <button className={category === item ? 'active' : ''} key={item} onClick={() => setCategory(item)} type="button">
+            {item}
+          </button>
+        ))}
+      </div>
+
+      <div className="explore-results">
+        <div className="results-heading">
+          <span>{filtered.length} {filtered.length === 1 ? 'piece' : 'pieces'}</span>
+          <span>{category === 'All' ? 'All writing' : category}</span>
+        </div>
+        <div className="article-grid explore-grid">
+          {filtered.map((article, index) => (
+            <ArticleCard key={article.title} article={article} featured={index === 0} onOpen={onOpenArticle} />
+          ))}
+        </div>
+        {filtered.length === 0 && (
+          <div className="empty-results">
+            <h2>Nothing found yet.</h2>
+            <p>Try another search or choose a different subject.</p>
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}
+
+function ArticlePage({ article, onBack, onOpenArticle }) {
+  return (
+    <article className="article-page">
+      <button className="back-button" onClick={onBack} type="button">← Back to reading</button>
+      <div className="article-page-header">
+        <div className="article-page-meta">{article.category} · {article.read}</div>
+        <h1>{article.title}</h1>
+        <p className="article-page-excerpt">{article.excerpt}</p>
+        <div className="article-page-byline">
+          <span className="author-mark">{article.author.charAt(0)}</span>
+          <div>
+            <strong>{article.author}</strong>
+            <span>{article.location} · {article.date}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="article-body">
+        {article.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+      </div>
+
+      <div className="article-footer">
+        <span>More to read</span>
+        <div>
+          {featured.filter((item) => item.title !== article.title).slice(0, 2).map((item) => (
+            <button key={item.title} onClick={() => onOpenArticle(item)} type="button">
+              <strong>{item.title}</strong>
+              <small>{item.category} · {item.read}</small>
+            </button>
+          ))}
+        </div>
+      </div>
+    </article>
+  )
+}
+
+function App() {
+  const [view, setView] = useState('home')
+  const [selectedArticle, setSelectedArticle] = useState(null)
+
+  const openExplore = () => {
+    setSelectedArticle(null)
+    setView('explore')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const openArticle = (article) => {
+    setSelectedArticle(article)
+    setView('article')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const goHome = () => {
+    setSelectedArticle(null)
+    setView('home')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  return (
+    <main className="site">
+      <header className="nav">
+        <button className="brand" onClick={goHome} type="button">
+          <span>LIB</span>WRITE
+          <small>Writing with roots. Ideas without borders.</small>
+        </button>
+
+        <nav className="nav-links" aria-label="Main navigation">
+          <button onClick={openExplore} type="button">Explore</button>
           <a href="#publications">Publications</a>
-          <a href="#writers">Writers</a>
           <a href="#about">About</a>
-          <a href="#guidelines">Community Guidelines</a>
+        </nav>
+
+        <div className="nav-actions">
+          <a className="signin" href="#signin">Sign in</a>
+          <a className="write-button" href="#write">Write <Arrow /></a>
         </div>
-        <p>Every place has something to say.<br /><strong>LibWrite is making room for it.</strong></p>
-      </footer>
+      </header>
+
+      {view === 'home' && <Home onExplore={openExplore} onOpenArticle={openArticle} />}
+      {view === 'explore' && <Explore onOpenArticle={openArticle} />}
+      {view === 'article' && selectedArticle && (
+        <ArticlePage article={selectedArticle} onBack={openExplore} onOpenArticle={openArticle} />
+      )}
+
+      {view === 'home' && (
+        <footer>
+          <div className="footer-brand">
+            <strong>LIBWRITE</strong>
+            <span>Writing with roots. Ideas without borders.</span>
+          </div>
+          <div className="footer-links">
+            <a href="#explore" onClick={(event) => { event.preventDefault(); openExplore() }}>Explore</a>
+            <a href="#publications">Publications</a>
+            <a href="#writers">Writers</a>
+            <a href="#about">About</a>
+            <a href="#guidelines">Community Guidelines</a>
+          </div>
+          <p>Every place has something to say.<br /><strong>LibWrite is making room for it.</strong></p>
+        </footer>
+      )}
     </main>
   )
 }
