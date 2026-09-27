@@ -400,7 +400,7 @@ function CategoryRoom({ category, onBack, onOpenArticle, onOpenCategory }) {
   )
 }
 
-function WriterDashboard({ onOpenEditor, onOpenArticle }) {
+function WriterDashboard({ onOpenEditor, onOpenArticle, onOpenAnalytics }) {
   const posts = [
     { title: 'The things my mother never wrote down', status: 'Draft', category: 'Personal Essays', updated: 'Edited today' },
     { title: 'A question worth carrying', status: 'Published', category: 'Philosophy & Ideas', updated: 'Sep 18, 2026' },
@@ -438,6 +438,8 @@ function WriterDashboard({ onOpenEditor, onOpenArticle }) {
         ))}
       </div>
 
+      <button className="analytics-link" onClick={onOpenAnalytics} type="button">View detailed analytics <Arrow /></button>
+
       <div className="writer-profile-card">
         <div className="author-mark large">J</div>
         <div>
@@ -446,6 +448,82 @@ function WriterDashboard({ onOpenEditor, onOpenArticle }) {
           <p>Writer · Philosophy · Education · Ideas</p>
         </div>
         <button type="button">Edit profile <Arrow /></button>
+      </div>
+    </section>
+  )
+}
+
+function Analytics({ onBack }) {
+  const stories = [
+    { title: 'A question worth carrying', category: 'Philosophy & Ideas', views: 391, reads: 286, reactions: 31, comments: 7, followers: 5, time: '4m 12s', published: 'Sep 18, 2026' },
+    { title: 'The things my mother never wrote down', category: 'Personal Essays', views: 842, reads: 617, reactions: 74, comments: 18, followers: 12, time: '5m 08s', published: 'Sep 20, 2026' },
+  ]
+
+  return (
+    <section className="analytics-page">
+      <div className="analytics-top">
+        <div>
+          <button className="back-button" onClick={onBack} type="button">← Back to writer studio</button>
+          <div className="section-marker">WRITER STUDIO <span>ANALYTICS</span></div>
+          <h1>See what your<br /><em>writing is doing.</em></h1>
+          <p>Understand how readers are finding, reading, and responding to your work.</p>
+        </div>
+        <select className="analytics-range" defaultValue="all">
+          <option value="7">Last 7 days</option>
+          <option value="30">Last 30 days</option>
+          <option value="all">All time</option>
+        </select>
+      </div>
+
+      <div className="analytics-summary">
+        <div><span>VIEWS</span><strong>1,233</strong></div>
+        <div><span>READS</span><strong>903</strong></div>
+        <div><span>REACTIONS</span><strong>105</strong></div>
+        <div><span>FOLLOWERS GAINED</span><strong>17</strong></div>
+      </div>
+
+      <div className="analytics-section">
+        <div className="analytics-heading"><span>STORY PERFORMANCE</span><span>2 PUBLISHED STORIES</span></div>
+        <div className="analytics-table-wrap">
+          <table className="analytics-table">
+            <thead>
+              <tr><th>Story</th><th>Views</th><th>Reads</th><th>Reactions</th><th>Comments</th><th>Followers</th></tr>
+            </thead>
+            <tbody>
+              {stories.map((story) => (
+                <tr key={story.title}>
+                  <td><strong>{story.title}</strong><small>{story.category}</small></td>
+                  <td>{story.views}</td><td>{story.reads}</td><td>{story.reactions}</td><td>{story.comments}</td><td>{story.followers}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="analytics-section">
+        <div className="analytics-heading"><span>STORY DETAILS</span><span>DETAILED METRICS</span></div>
+        <div className="story-detail-grid">
+          {stories.map((story) => (
+            <article className="story-detail-card" key={story.title}>
+              <div className="story-detail-meta">{story.category} · {story.published}</div>
+              <h2>{story.title}</h2>
+              <div className="story-metrics">
+                <div><span>Views</span><strong>{story.views}</strong></div>
+                <div><span>Reads</span><strong>{story.reads}</strong></div>
+                <div><span>Reactions</span><strong>{story.reactions}</strong></div>
+                <div><span>Comments</span><strong>{story.comments}</strong></div>
+                <div><span>Followers</span><strong>+{story.followers}</strong></div>
+                <div><span>Avg. reading time</span><strong>{story.time}</strong></div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div className="analytics-note">
+        <strong>Analytics are local for now.</strong>
+        <span>These figures are sample data while LibWrite is being built. Real reader activity will replace them when the data layer is connected.</span>
       </div>
     </section>
   )
@@ -545,6 +623,13 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  const openAnalytics = () => {
+    setSelectedArticle(null)
+    setSelectedCategory(null)
+    setView('analytics')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   const openWriter = () => {
     setSelectedArticle(null)
     setSelectedCategory(null)
@@ -594,7 +679,8 @@ function App() {
       {view === 'home' && <Home onExplore={openExplore} onOpenArticle={openArticle} onOpenCategory={openCategory} />}
       {view === 'explore' && <Explore onOpenArticle={openArticle} onOpenCategory={openCategory} />}
       {view === 'category' && selectedCategory && <CategoryRoom category={selectedCategory} onBack={openExplore} onOpenArticle={openArticle} onOpenCategory={openCategory} />}
-      {view === 'writer' && <WriterDashboard onOpenEditor={openEditor} onOpenArticle={openArticle} />}
+      {view === 'writer' && <WriterDashboard onOpenEditor={openEditor} onOpenArticle={openArticle} onOpenAnalytics={openAnalytics} />}
+      {view === 'analytics' && <Analytics onBack={openWriter} />}
       {view === 'editor' && <WriterEditor draft={writerDraft} onBack={openWriter} onSave={saveWriterDraft} />}
       {view === 'article' && selectedArticle && (
         <ArticlePage article={selectedArticle} onBack={openExplore} onOpenArticle={openArticle} />
