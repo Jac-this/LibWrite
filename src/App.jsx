@@ -458,7 +458,7 @@ function WriterEditor({ draft, onBack, onSave }) {
   const [body, setBody] = useState(draft?.body?.join('\n\n') || '')
 
   const saveDraft = () => {
-    onSave({ title: title || 'Untitled story', category, excerpt, body: body.split(/\\n\\s*\\n/).filter(Boolean), author: 'Jacob Bropleh', location: 'Harare', date: 'Sep 27, 2026', read: '5 min read' })
+    onSave({ title: title || 'Untitled story', category, excerpt, body: body.split(/\n\s*\n/).filter(Boolean), author: 'Jacob Bropleh', location: 'Harare', date: 'Sep 27, 2026', read: '5 min read' })
   }
 
   return (
