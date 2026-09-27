@@ -669,3 +669,155 @@ footer > p strong { color: var(--indigo); font-weight: 500; }
     margin-right: 0;
   }
 }
+
+
+/* Category feed */
+.room-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 0 auto 55px;
+  border-bottom: 1px solid var(--line);
+}
+
+.room-tabs button {
+  padding: 0 2px 13px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: #899096;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.room-tabs button.active {
+  color: var(--indigo);
+  border-bottom-color: var(--gold);
+}
+
+.category-feed {
+  max-width: 900px;
+  margin: auto;
+}
+
+.feed-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.feed-heading > div > span {
+  color: var(--gold);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+}
+
+.feed-heading h2 {
+  margin-top: 12px;
+  font-size: 40px;
+}
+
+.feed-heading > p {
+  margin: 0;
+  color: #899096;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.feed-card {
+  width: 100%;
+  min-height: 220px;
+  display: grid;
+  grid-template-columns: 1fr 40px;
+  gap: 35px;
+  padding: 35px 10px 35px 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: padding .2s, background .2s;
+}
+
+.feed-card:hover {
+  padding-left: 14px;
+  padding-right: 0;
+  background: rgba(62,90,114,.025);
+}
+
+.feed-card-featured {
+  min-height: 320px;
+  padding-top: 45px;
+  padding-bottom: 45px;
+}
+
+.feed-card .article-meta {
+  max-width: 700px;
+}
+
+.feed-card h3 {
+  max-width: 760px;
+  margin: 24px 0 12px;
+  color: var(--indigo);
+  font-family: var(--serif);
+  font-size: 29px;
+  line-height: 1.15;
+  font-weight: 500;
+}
+
+.feed-card-featured h3 {
+  font-size: 46px;
+}
+
+.feed-card p {
+  max-width: 650px;
+  margin: 0 0 25px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.feed-card .article-author {
+  margin-top: 0;
+}
+
+.feed-arrow {
+  align-self: center;
+  color: var(--indigo);
+  font-size: 18px;
+}
+
+.room-subject-section {
+  max-width: 900px;
+  margin: 80px auto 0;
+}
+
+@media (max-width: 800px) {
+  .room-tabs {
+    justify-content: flex-start;
+    overflow-x: auto;
+  }
+
+  .feed-heading h2 {
+    font-size: 34px;
+  }
+
+  .feed-card {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .feed-card-featured h3,
+  .feed-card h3 {
+    font-size: 32px;
+  }
+
+  .feed-arrow {
+    display: none;
+  }
+}
