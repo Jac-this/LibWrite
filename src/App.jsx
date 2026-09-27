@@ -545,7 +545,26 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const openWriter = () => {\n    setSelectedArticle(null)\n    setSelectedCategory(null)\n    setView('writer')\n    window.scrollTo({ top: 0, behavior: 'smooth' })\n  }\n\n  const openEditor = (draft = null) => {\n    setWriterDraft(draft)\n    setView('editor')\n    window.scrollTo({ top: 0, behavior: 'smooth' })\n  }\n\n  const saveWriterDraft = (draft) => {\n    setWriterDraft(draft)\n    setView('writer')\n    window.scrollTo({ top: 0, behavior: 'smooth' })\n  }\n\n  const goHome = () => {
+  const openWriter = () => {
+    setSelectedArticle(null)
+    setSelectedCategory(null)
+    setView('writer')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const openEditor = (draft = null) => {
+    setWriterDraft(draft)
+    setView('editor')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const saveWriterDraft = (draft) => {
+    setWriterDraft(draft)
+    setView('writer')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const goHome = () => {
     setSelectedArticle(null)
     setSelectedCategory(null)
     setView('home')
@@ -575,7 +594,9 @@ function App() {
       {view === 'home' && <Home onExplore={openExplore} onOpenArticle={openArticle} onOpenCategory={openCategory} />}
       {view === 'explore' && <Explore onOpenArticle={openArticle} onOpenCategory={openCategory} />}
       {view === 'category' && selectedCategory && <CategoryRoom category={selectedCategory} onBack={openExplore} onOpenArticle={openArticle} onOpenCategory={openCategory} />}
-      {view === 'writer' && <WriterDashboard onOpenEditor={openEditor} onOpenArticle={openArticle} />}\n      {view === 'editor' && <WriterEditor draft={writerDraft} onBack={openWriter} onSave={saveWriterDraft} />}\n      {view === 'article' && selectedArticle && (
+      {view === 'writer' && <WriterDashboard onOpenEditor={openEditor} onOpenArticle={openArticle} />}
+      {view === 'editor' && <WriterEditor draft={writerDraft} onBack={openWriter} onSave={saveWriterDraft} />}
+      {view === 'article' && selectedArticle && (
         <ArticlePage article={selectedArticle} onBack={openExplore} onOpenArticle={openArticle} />
       )}
 
