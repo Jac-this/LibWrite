@@ -88,6 +88,44 @@ const featured = [
   },
 ]
 
+const feedArticles = [
+  { category: 'PHILOSOPHY & IDEAS', title: 'What does it mean to know something?', excerpt: 'A look at knowledge, doubt, and the limits of what we think we know.', author: 'Sarah T. Kollie', read: '6 min read', location: 'Monrovia', date: 'Sep 26, 2026' },
+  { category: 'PHILOSOPHY & IDEAS', title: 'Can faith and reason disagree?', excerpt: 'A reflection on belief, reason, and the spaces where certainty becomes difficult.', author: 'David K. Mensah', read: '9 min read', location: 'Kumasi', date: 'Sep 25, 2026' },
+  { category: 'PHILOSOPHY & IDEAS', title: 'What do we owe the people who come after us?', excerpt: 'On responsibility, inheritance, and the future we quietly build for strangers.', author: 'Naomi T. Cooper', read: '7 min read', location: 'Robertsport', date: 'Sep 23, 2026' },
+  { category: 'HISTORY', title: 'The town that remembers', excerpt: 'How places carry stories even after the people who first told them are gone.', author: 'Martha K. Johnson', read: '8 min read', location: 'Harper', date: 'Sep 26, 2026' },
+  { category: 'HISTORY', title: 'Before the archive was written', excerpt: 'What family memory can teach us about the histories that never reached paper.', author: 'Emmanuel K. Doe', read: '6 min read', location: 'Buchanan', date: 'Sep 24, 2026' },
+  { category: 'HISTORY', title: 'A photograph with no names', excerpt: 'One old photograph opens questions about memory, family, and historical silence.', author: 'Sarah T. Kollie', read: '5 min read', location: 'Monrovia', date: 'Sep 21, 2026' },
+  { category: 'CULTURE', title: 'The words we carry home', excerpt: 'Language, belonging, and the small expressions that keep a place close.', author: 'James M. Cooper', read: '7 min read', location: 'New York', date: 'Sep 25, 2026' },
+  { category: 'CULTURE', title: 'When tradition changes', excerpt: 'What happens when an inherited practice meets a new generation?', author: 'Naomi T. Cooper', read: '6 min read', location: 'Monrovia', date: 'Sep 22, 2026' },
+  { category: 'CULTURE', title: 'The sound of a community', excerpt: 'Music, celebration, and the ordinary sounds through which communities recognize themselves.', author: 'David K. Mensah', read: '5 min read', location: 'Kumasi', date: 'Sep 19, 2026' },
+  { category: 'EDUCATION', title: 'The question a student remembers', excerpt: 'Sometimes the most important lesson is the question that refuses to leave.', author: 'Martha K. Johnson', read: '6 min read', location: 'Harare', date: 'Sep 25, 2026' },
+  { category: 'EDUCATION', title: 'Learning beyond the classroom', excerpt: 'What students learn from families, communities, mistakes, and ordinary life.', author: 'Emmanuel K. Doe', read: '8 min read', location: 'Monrovia', date: 'Sep 22, 2026' },
+  { category: 'EDUCATION', title: 'What makes a school a community?', excerpt: 'Schools are places of lessons, but they are also places where people learn to belong.', author: 'Sarah T. Kollie', read: '7 min read', location: 'Harper', date: 'Sep 20, 2026' },
+  { category: 'RELIGION & SPIRITUALITY', title: 'When prayer becomes waiting', excerpt: 'On patience, silence, and the strange discipline of remaining present.', author: 'David K. Mensah', read: '6 min read', location: 'Kumasi', date: 'Sep 24, 2026' },
+  { category: 'RELIGION & SPIRITUALITY', title: 'The faith we inherited', excerpt: 'What we receive from those who believed before us, and what we choose to keep.', author: 'Martha K. Johnson', read: '8 min read', location: 'Harare', date: 'Sep 21, 2026' },
+  { category: 'RELIGION & SPIRITUALITY', title: 'Doubt is also a question', excerpt: 'A reflection on uncertainty and the search for meaning when easy answers disappear.', author: 'Emmanuel K. Doe', read: '5 min read', location: 'Monrovia', date: 'Sep 18, 2026' },
+  { category: 'SCIENCE & TECHNOLOGY', title: 'What technology changes first', excerpt: 'The tools we build can quietly change the way we work, think, and relate to one another.', author: 'James M. Cooper', read: '7 min read', location: 'New York', date: 'Sep 26, 2026' },
+  { category: 'SCIENCE & TECHNOLOGY', title: 'Can technology preserve memory?', excerpt: 'Digital archives may store more than ever, but storage is not the same as remembering.', author: 'Sarah T. Kollie', read: '8 min read', location: 'Monrovia', date: 'Sep 23, 2026' },
+  { category: 'SCIENCE & TECHNOLOGY', title: 'The ordinary future', excerpt: 'How emerging technologies become ordinary parts of life before we notice the change.', author: 'Martha K. Johnson', read: '6 min read', location: 'Harare', date: 'Sep 20, 2026' },
+  { category: 'POETRY', title: 'What the river remembers', excerpt: 'A poem about distance, return, and the places that continue speaking to us.', author: 'Naomi T. Cooper', read: '3 min read', location: 'Robertsport', date: 'Sep 26, 2026' },
+  { category: 'POETRY', title: 'A name carried quietly', excerpt: 'A short poem about inheritance, family, and the names we carry.', author: 'James M. Cooper', read: '2 min read', location: 'New York', date: 'Sep 22, 2026' },
+  { category: 'POETRY', title: 'After everyone goes home', excerpt: 'On the silence left behind after celebration.', author: 'David K. Mensah', read: '3 min read', location: 'Kumasi', date: 'Sep 19, 2026' },
+  { category: 'FICTION', title: 'The road after rain', excerpt: 'A short story about a journey, a promise, and the person waiting at the other end.', author: 'Sarah T. Kollie', read: '10 min read', location: 'Monrovia', date: 'Sep 25, 2026' },
+  { category: 'FICTION', title: 'The room with two windows', excerpt: 'A story about memory and the strange things familiar places can reveal.', author: 'Emmanuel K. Doe', read: '9 min read', location: 'Buchanan', date: 'Sep 21, 2026' },
+  { category: 'PERSONAL ESSAYS', title: 'What I learned from leaving home', excerpt: 'Distance changes a place in the mind before it changes anything else.', author: 'Naomi T. Cooper', read: '8 min read', location: 'New York', date: 'Sep 24, 2026' },
+  { category: 'PERSONAL ESSAYS', title: 'The things my mother never wrote down', excerpt: 'Some lessons arrive without pages, certificates, or official records.', author: 'Martha K. Johnson', read: '7 min read', location: 'Harare', date: 'Sep 20, 2026' },
+  { category: 'OPINION', title: 'What should we preserve?', excerpt: 'A question about memory, public life, and the choices communities make about what matters.', author: 'James M. Cooper', read: '6 min read', location: 'Monrovia', date: 'Sep 25, 2026' },
+  { category: 'OPINION', title: 'We need better questions', excerpt: 'Why public conversations sometimes improve when we stop rushing toward conclusions.', author: 'Emmanuel K. Doe', read: '5 min read', location: 'Harare', date: 'Sep 22, 2026' },
+  { category: 'POLITICS & PUBLIC LIFE', title: 'What does citizenship ask of us?', excerpt: 'A reflection on participation, responsibility, and belonging in public life.', author: 'David K. Mensah', read: '8 min read', location: 'Monrovia', date: 'Sep 24, 2026' },
+  { category: 'POLITICS & PUBLIC LIFE', title: 'The space between citizen and state', excerpt: 'Thinking about institutions, responsibility, and the everyday experience of public life.', author: 'Sarah T. Kollie', read: '7 min read', location: 'Harper', date: 'Sep 20, 2026' },
+  { category: 'BUSINESS & ENTREPRENEURSHIP', title: 'Building with what we have', excerpt: 'What small enterprises teach us about creativity, risk, and opportunity.', author: 'Martha K. Johnson', read: '6 min read', location: 'Harare', date: 'Sep 25, 2026' },
+  { category: 'BUSINESS & ENTREPRENEURSHIP', title: 'The business of an ordinary idea', excerpt: 'Sometimes an opportunity begins with noticing a problem everyone else has learned to ignore.', author: 'James M. Cooper', read: '7 min read', location: 'Monrovia', date: 'Sep 21, 2026' },
+  { category: 'RESEARCH', title: 'What happens when memory becomes data?', excerpt: 'An exploration of archives, digital records, and the changing life of information.', author: 'Emmanuel K. Doe', read: '11 min read', location: 'Monrovia', date: 'Sep 23, 2026' },
+  { category: 'RESEARCH', title: 'Notes from the field', excerpt: 'Observations on how questions become evidence and evidence becomes understanding.', author: 'Sarah T. Kollie', read: '9 min read', location: 'Harper', date: 'Sep 18, 2026' },
+  { category: 'CAMPUS VOICES', title: 'What students are really discussing', excerpt: 'Beyond lectures and examinations, campus is a place where ideas meet everyday life.', author: 'Martha K. Johnson', read: '6 min read', location: 'Harare', date: 'Sep 26, 2026' },
+  { category: 'CAMPUS VOICES', title: 'Learning to disagree well', excerpt: 'What happens when students discover that disagreement can be part of learning.', author: 'Naomi T. Cooper', read: '7 min read', location: 'Monrovia', date: 'Sep 20, 2026' },
+]
+
 const publications = [
   { name: 'The Liberian Review', detail: 'Essays · History · Public Life' },
   { name: 'Campus Liberia', detail: 'Students · Education · Ideas' },
@@ -307,38 +345,60 @@ function Explore({ onOpenArticle, onOpenCategory }) {
 
 function CategoryRoom({ category, onBack, onOpenArticle, onOpenCategory }) {
   const room = categoryRooms[category]
-  const articles = featured.filter((article) => article.category === category.toUpperCase())
+  const roomArticles = [...featured, ...feedArticles].filter((article) => article.category === category.toUpperCase())
 
   return (
     <section className="category-room">
       <button className="back-button" onClick={onBack} type="button">← Back to explore</button>
+
       <header className="room-header">
         <div className="section-marker">READING ROOM <span>{category.toUpperCase()}</span></div>
         <h1>{category}</h1>
         <p>{room?.intro || 'Writing, ideas, and conversations gathered around a shared subject.'}</p>
       </header>
-      <div className="room-feature">
-        <div><span>THE ROOM</span><h2>Explore what people are saying, asking, remembering, and creating.</h2></div>
-        <p>{articles.length ? `${articles.length} published piece${articles.length === 1 ? '' : 's'} in this room so far.` : 'This room is ready for new voices.'}</p>
+
+      <div className="room-tabs">
+        <button className="active" type="button">Latest</button>
+        <button type="button">Popular</button>
+        <button type="button">Following</button>
       </div>
-      <div className="room-section">
+
+      <div className="category-feed">
+        <div className="feed-heading">
+          <div><span>THE {category.toUpperCase()} FEED</span><h2>Latest writing</h2></div>
+          <p>{roomArticles.length} pieces</p>
+        </div>
+
+        {roomArticles.map((article, index) => (
+          <button className={index === 0 ? 'feed-card feed-card-featured' : 'feed-card'} key={article.title} onClick={() => onOpenArticle(article)} type="button">
+            <div className="feed-card-content">
+              <div className="article-meta"><span>{article.category}</span><span>{article.read}</span></div>
+              <h3>{article.title}</h3>
+              <p>{article.excerpt}</p>
+              <div className="article-author">
+                <span className="author-mark">{article.author.charAt(0)}</span>
+                <span>By {article.author} · {article.location} · {article.date}</span>
+              </div>
+            </div>
+            <span className="feed-arrow"><Arrow /></span>
+          </button>
+        ))}
+      </div>
+
+      <div className="room-section room-subject-section">
         <div className="room-section-heading"><span>EXPLORE THIS ROOM</span><span>{room?.sections.join(' · ')}</span></div>
         <div className="room-subjects">
           {(room?.sections || []).map((section) => <button key={section} type="button"><strong>{section}</strong><span>Explore this subject ↗</span></button>)}
         </div>
       </div>
+
       <div className="room-section">
-        <div className="room-section-heading"><span>WRITING IN {category.toUpperCase()}</span><span>{articles.length} {articles.length === 1 ? 'piece' : 'pieces'}</span></div>
-        {articles.length ? <div className="article-grid explore-grid">{articles.map((article, index) => <ArticleCard key={article.title} article={article} featured={index === 0} onOpen={onOpenArticle} />)}</div> : <div className="room-empty"><h2>The room is waiting for its first voices.</h2><p>As writers publish in this category, their work will gather here.</p></div>}
-      </div>
-      <div className="room-section">
-        <div className="room-section-heading"><span>YOU MAY ALSO EXPLORE</span><span>OTHER ROOMS</span></div>
+        <div className="room-section-heading"><span>OTHER ROOMS</span><span>KEEP EXPLORING</span></div>
         <div className="room-links">{categories.slice(1).filter((item) => item !== category).slice(0, 6).map((item) => <button key={item} type="button" onClick={() => onOpenCategory(item)}>{item} <Arrow /></button>)}</div>
       </div>
     </section>
   )
 }
-
 function ArticlePage({ article, onBack, onOpenArticle }) {
   return (
     <article className="article-page">
