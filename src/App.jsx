@@ -399,6 +399,89 @@ function CategoryRoom({ category, onBack, onOpenArticle, onOpenCategory }) {
     </section>
   )
 }
+
+function WriterDashboard({ onOpenEditor, onOpenArticle }) {
+  const posts = [
+    { title: 'The things my mother never wrote down', status: 'Draft', category: 'Personal Essays', updated: 'Edited today' },
+    { title: 'A question worth carrying', status: 'Published', category: 'Philosophy & Ideas', updated: 'Sep 18, 2026' },
+  ]
+
+  return (
+    <section className="writer-dashboard">
+      <div className="writer-top">
+        <div>
+          <div className="section-marker">WRITER STUDIO <span>YOUR DESK</span></div>
+          <h1>Your writing<br /><em>has a home.</em></h1>
+          <p>Write, revise, publish, and keep track of the ideas you are building.</p>
+        </div>
+        <button className="primary-button" onClick={() => onOpenEditor()} type="button">New story <Arrow /></button>
+      </div>
+
+      <div className="writer-stats">
+        <div><span>STORIES</span><strong>2</strong></div>
+        <div><span>READERS</span><strong>128</strong></div>
+        <div><span>READS</span><strong>1.4K</strong></div>
+        <div><span>FOLLOWERS</span><strong>46</strong></div>
+      </div>
+
+      <div className="writer-workspace">
+        <div className="writer-section-title"><span>YOUR WRITING</span><span>RECENT ACTIVITY</span></div>
+        {posts.map((post) => (
+          <button className="writer-post" key={post.title} onClick={() => onOpenEditor(post.status === 'Draft' ? post : null)} type="button">
+            <div>
+              <span className={post.status === 'Draft' ? 'status draft' : 'status'}>{post.status}</span>
+              <h2>{post.title}</h2>
+              <p>{post.category} · {post.updated}</p>
+            </div>
+            <Arrow />
+          </button>
+        ))}
+      </div>
+
+      <div className="writer-profile-card">
+        <div className="author-mark large">J</div>
+        <div>
+          <span className="section-marker">YOUR PROFILE</span>
+          <h2>Jacob Bropleh</h2>
+          <p>Writer · Philosophy · Education · Ideas</p>
+        </div>
+        <button type="button">Edit profile <Arrow /></button>
+      </div>
+    </section>
+  )
+}
+
+function WriterEditor({ draft, onBack, onSave }) {
+  const [title, setTitle] = useState(draft?.title || '')
+  const [category, setCategory] = useState(draft?.category || 'Personal Essays')
+  const [excerpt, setExcerpt] = useState(draft?.excerpt || '')
+  const [body, setBody] = useState(draft?.body?.join('\n\n') || '')
+
+  const saveDraft = () => {
+    onSave({ title: title || 'Untitled story', category, excerpt, body: body.split(/\\n\\s*\\n/).filter(Boolean), author: 'Jacob Bropleh', location: 'Harare', date: 'Sep 27, 2026', read: '5 min read' })
+  }
+
+  return (
+    <section className="writer-editor">
+      <div className="editor-toolbar">
+        <button className="back-button" onClick={onBack} type="button">← Back to writer studio</button>
+        <div><button className="secondary-button" onClick={saveDraft} type="button">Save draft</button><button className="primary-button" onClick={saveDraft} type="button">Publish <Arrow /></button></div>
+      </div>
+
+      <div className="editor-paper">
+        <div className="editor-kicker">NEW STORY · {category.toUpperCase()}</div>
+        <input className="editor-title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Give your story a title..." />
+        <textarea className="editor-excerpt" value={excerpt} onChange={(e) => setExcerpt(e.target.value)} placeholder="Write a short description of what readers will find here..." />
+        <div className="editor-settings">
+          <label>Category <select value={category} onChange={(e) => setCategory(e.target.value)}>{categories.slice(1).map((item) => <option key={item}>{item}</option>)}</select></label>
+          <span>Draft · saves locally for now</span>
+        </div>
+        <textarea className="editor-body" value={body} onChange={(e) => setBody(e.target.value)} placeholder="Start writing here..."></textarea>
+      </div>
+    </section>
+  )
+}
+
 function ArticlePage({ article, onBack, onOpenArticle }) {
   return (
     <article className="article-page">
@@ -438,7 +521,7 @@ function ArticlePage({ article, onBack, onOpenArticle }) {
 function App() {
   const [view, setView] = useState('home')
   const [selectedArticle, setSelectedArticle] = useState(null)
-  const [selectedCategory, setSelectedCategory] = useState(null)
+  const [selectedCategory, setSelectedCategory] = useState(null)\n  const [writerDraft, setWriterDraft] = useState(null)
 
   const openExplore = () => {
     setSelectedArticle(null)
@@ -461,7 +544,7 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const goHome = () => {
+  const openWriter = () => {\n    setSelectedArticle(null)\n    setSelectedCategory(null)\n    setView('writer')\n    window.scrollTo({ top: 0, behavior: 'smooth' })\n  }\n\n  const openEditor = (draft = null) => {\n    setWriterDraft(draft)\n    setView('editor')\n    window.scrollTo({ top: 0, behavior: 'smooth' })\n  }\n\n  const saveWriterDraft = (draft) => {\n    setWriterDraft(draft)\n    setView('writer')\n    window.scrollTo({ top: 0, behavior: 'smooth' })\n  }\n\n  const goHome = () => {
     setSelectedArticle(null)
     setSelectedCategory(null)
     setView('home')
@@ -484,14 +567,14 @@ function App() {
 
         <div className="nav-actions">
           <a className="signin" href="#signin">Sign in</a>
-          <a className="write-button" href="#write">Write <Arrow /></a>
+          <button className="write-button" onClick={openWriter} type="button">Write <Arrow /></button>
         </div>
       </header>
 
       {view === 'home' && <Home onExplore={openExplore} onOpenArticle={openArticle} onOpenCategory={openCategory} />}
       {view === 'explore' && <Explore onOpenArticle={openArticle} onOpenCategory={openCategory} />}
       {view === 'category' && selectedCategory && <CategoryRoom category={selectedCategory} onBack={openExplore} onOpenArticle={openArticle} onOpenCategory={openCategory} />}
-      {view === 'article' && selectedArticle && (
+      {view === 'writer' && <WriterDashboard onOpenEditor={openEditor} onOpenArticle={openArticle} />}\n      {view === 'editor' && <WriterEditor draft={writerDraft} onBack={openWriter} onSave={saveWriterDraft} />}\n      {view === 'article' && selectedArticle && (
         <ArticlePage article={selectedArticle} onBack={openExplore} onOpenArticle={openArticle} />
       )}
 
