@@ -40,7 +40,7 @@ function App() {
       <header className="nav">
         <a className="brand" href="/">
           <span>LIB</span>WRITE
-          <small>Liberian voices. Global ideas.</small>
+          <small>Writing with roots. Ideas without borders.</small>
         </a>
 
         <nav className="nav-links" aria-label="Main navigation">
@@ -62,17 +62,17 @@ function App() {
           <span />
           <span />
         </div>
-        <p className="eyebrow">A home for Liberian thought</p>
+        <p className="eyebrow">A home for thought</p>
         <h1>Write what should<br /><em>not be forgotten.</em></h1>
         <p className="hero-copy">
           A place to write, publish, read, and discover ideas, stories, and
-          conversations from Liberia and the diaspora.
+          conversations — wherever they begin.
         </p>
         <div className="hero-actions">
           <a className="primary-button" href="#discover">Explore writing <Arrow /></a>
           <a className="text-button" href="#write">Start writing</a>
         </div>
-        <p className="hero-note">From the classroom to the marketplace. From Monrovia to the world.</p>
+        <p className="hero-note">From the classroom to the marketplace. From one place to another.</p>
       </section>
 
       <section className="manifesto" id="about">
@@ -97,7 +97,7 @@ function App() {
         <div className="section-heading">
           <div>
             <div className="section-marker">02 <span>THE READING ROOM</span></div>
-            <h2>What is Liberia<br />thinking about?</h2>
+            <h2>What are we<br />thinking about?</h2>
           </div>
           <a href="#all-writing">View all writing <Arrow /></a>
         </div>
@@ -128,7 +128,7 @@ function App() {
         <div className="section-marker">03 <span>PUBLICATIONS</span></div>
         <div className="publication-intro">
           <h2>Ideas have<br /><em>communities.</em></h2>
-          <p>Follow publications, journals, campus voices, and independent collections shaping conversations around Liberia.</p>
+          <p>Follow publications, journals, campus voices, and independent collections shaping the conversations that matter.</p>
         </div>
         <div className="publication-list">
           {publications.map((publication, index) => (
@@ -164,7 +164,7 @@ function App() {
           <a href="#about">About</a>
           <a href="#guidelines">Community Guidelines</a>
         </div>
-        <p>Liberia has always had something to say.<br /><strong>LibWrite is making room for it.</strong></p>
+        <p>Every place has something to say.<br /><strong>LibWrite is making room for it.</strong></p>
       </footer>
     </main>
   )
