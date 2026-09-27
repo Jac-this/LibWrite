@@ -103,7 +103,31 @@ const categories = [
   'Religion & Spirituality',
   'Science & Technology',
   'Poetry',
+  'Fiction',
+  'Personal Essays',
+  'Opinion',
+  'Politics & Public Life',
+  'Business & Entrepreneurship',
+  'Research',
+  'Campus Voices',
 ]
+
+const categoryRooms = {
+  'Philosophy & Ideas': { intro: 'Questions worth sitting with. Ideas worth arguing about.', sections: ['Ethics', 'Knowledge & Reason', 'African Philosophy', 'Philosophy of Religion'] },
+  History: { intro: 'The past is not finished with us.', sections: ['People & Lives', 'Places & Memory', 'Historical Essays', 'Archives'] },
+  Culture: { intro: 'The ways we speak, live, create, and remember.', sections: ['Language', 'Tradition & Heritage', 'Identity', 'Arts & Everyday Life'] },
+  Education: { intro: 'Ideas about learning, teaching, schools, and the people shaped by them.', sections: ['Teaching', 'Learning', 'Schools & Universities', 'Education & Society'] },
+  'Religion & Spirituality': { intro: 'Faith, doubt, prayer, meaning, and the search for what is beyond us.', sections: ['Faith & Doubt', 'Prayer & Practice', 'Theology', 'Spiritual Life'] },
+  'Science & Technology': { intro: 'Questions, discoveries, inventions, and the changing world around us.', sections: ['Science', 'Technology', 'Innovation', 'Digital Life'] },
+  Poetry: { intro: 'Some things are easier to say differently.', sections: ['New Poems', 'Poets to Discover', 'Collections', 'Spoken Word'] },
+  Fiction: { intro: 'Stories that let us enter lives, places, and possibilities beyond our own.', sections: ['Short Stories', 'Literary Fiction', 'New Voices', 'Collections'] },
+  'Personal Essays': { intro: 'Experience becomes writing when someone is willing to look at it closely.', sections: ['Life & Memory', 'Identity', 'Family & Home', 'Reflections'] },
+  Opinion: { intro: 'Perspectives offered for thought, conversation, and disagreement.', sections: ['Public Questions', 'Culture & Society', 'Ideas', 'Commentary'] },
+  'Politics & Public Life': { intro: 'Writing about public life, institutions, citizenship, and the questions that shape society.', sections: ['Civic Life', 'Governance', 'Public Policy', 'Political Thought'] },
+  'Business & Entrepreneurship': { intro: 'Ideas about work, enterprise, markets, opportunity, and building something of value.', sections: ['Entrepreneurship', 'Markets', 'Work & Careers', 'Business Stories'] },
+  Research: { intro: 'Research, investigations, and careful attempts to understand what we do not yet know.', sections: ['Studies', 'Investigations', 'Research Notes', 'Long-form Research'] },
+  'Campus Voices': { intro: 'Students and young thinkers writing about the world from where they are learning and living.', sections: ['Student Life', 'Campus Debates', 'Education', 'Young Voices'] },
+}
 
 function Arrow() {
   return <span aria-hidden="true">↗</span>
@@ -130,7 +154,7 @@ function ArticleCard({ article, featured: isFeatured, onOpen }) {
   )
 }
 
-function Home({ onExplore, onOpenArticle }) {
+function Home({ onExplore, onOpenArticle, onOpenCategory }) {
   return (
     <>
       <section className="hero">
@@ -181,7 +205,7 @@ function Home({ onExplore, onOpenArticle }) {
         <div className="topics">
           <span>Explore by subject</span>
           {categories.slice(1).map((topic) => (
-            <button key={topic} type="button" onClick={onExplore}>{topic}</button>
+            <button key={topic} type="button" onClick={() => onOpenCategory(topic)}>{topic}</button>
           ))}
         </div>
       </section>
@@ -217,7 +241,7 @@ function Home({ onExplore, onOpenArticle }) {
   )
 }
 
-function Explore({ onOpenArticle }) {
+function Explore({ onOpenArticle, onOpenCategory }) {
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('All')
 
@@ -254,7 +278,7 @@ function Explore({ onOpenArticle }) {
 
       <div className="category-bar">
         {categories.map((item) => (
-          <button className={category === item ? 'active' : ''} key={item} onClick={() => setCategory(item)} type="button">
+          <button className={category === item ? 'active' : ''} key={item} onClick={() => item === 'All' ? setCategory(item) : onOpenCategory(item)} type="button">
             {item}
           </button>
         ))}
@@ -276,6 +300,40 @@ function Explore({ onOpenArticle }) {
             <p>Try another search or choose a different subject.</p>
           </div>
         )}
+      </div>
+    </section>
+  )
+}
+
+function CategoryRoom({ category, onBack, onOpenArticle, onOpenCategory }) {
+  const room = categoryRooms[category]
+  const articles = featured.filter((article) => article.category === category.toUpperCase())
+
+  return (
+    <section className="category-room">
+      <button className="back-button" onClick={onBack} type="button">← Back to explore</button>
+      <header className="room-header">
+        <div className="section-marker">READING ROOM <span>{category.toUpperCase()}</span></div>
+        <h1>{category}</h1>
+        <p>{room?.intro || 'Writing, ideas, and conversations gathered around a shared subject.'}</p>
+      </header>
+      <div className="room-feature">
+        <div><span>THE ROOM</span><h2>Explore what people are saying, asking, remembering, and creating.</h2></div>
+        <p>{articles.length ? `${articles.length} published piece${articles.length === 1 ? '' : 's'} in this room so far.` : 'This room is ready for new voices.'}</p>
+      </div>
+      <div className="room-section">
+        <div className="room-section-heading"><span>EXPLORE THIS ROOM</span><span>{room?.sections.join(' · ')}</span></div>
+        <div className="room-subjects">
+          {(room?.sections || []).map((section) => <button key={section} type="button"><strong>{section}</strong><span>Explore this subject ↗</span></button>)}
+        </div>
+      </div>
+      <div className="room-section">
+        <div className="room-section-heading"><span>WRITING IN {category.toUpperCase()}</span><span>{articles.length} {articles.length === 1 ? 'piece' : 'pieces'}</span></div>
+        {articles.length ? <div className="article-grid explore-grid">{articles.map((article, index) => <ArticleCard key={article.title} article={article} featured={index === 0} onOpen={onOpenArticle} />)}</div> : <div className="room-empty"><h2>The room is waiting for its first voices.</h2><p>As writers publish in this category, their work will gather here.</p></div>}
+      </div>
+      <div className="room-section">
+        <div className="room-section-heading"><span>YOU MAY ALSO EXPLORE</span><span>OTHER ROOMS</span></div>
+        <div className="room-links">{categories.slice(1).filter((item) => item !== category).slice(0, 6).map((item) => <button key={item} type="button" onClick={() => onOpenCategory(item)}>{item} <Arrow /></button>)}</div>
       </div>
     </section>
   )
@@ -320,21 +378,32 @@ function ArticlePage({ article, onBack, onOpenArticle }) {
 function App() {
   const [view, setView] = useState('home')
   const [selectedArticle, setSelectedArticle] = useState(null)
+  const [selectedCategory, setSelectedCategory] = useState(null)
 
   const openExplore = () => {
     setSelectedArticle(null)
+    setSelectedCategory(null)
     setView('explore')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const openCategory = (category) => {
+    setSelectedArticle(null)
+    setSelectedCategory(category)
+    setView('category')
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const openArticle = (article) => {
     setSelectedArticle(article)
+    setSelectedCategory(null)
     setView('article')
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const goHome = () => {
     setSelectedArticle(null)
+    setSelectedCategory(null)
     setView('home')
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -359,8 +428,9 @@ function App() {
         </div>
       </header>
 
-      {view === 'home' && <Home onExplore={openExplore} onOpenArticle={openArticle} />}
-      {view === 'explore' && <Explore onOpenArticle={openArticle} />}
+      {view === 'home' && <Home onExplore={openExplore} onOpenArticle={openArticle} onOpenCategory={openCategory} />}
+      {view === 'explore' && <Explore onOpenArticle={openArticle} onOpenCategory={openCategory} />}
+      {view === 'category' && selectedCategory && <CategoryRoom category={selectedCategory} onBack={openExplore} onOpenArticle={openArticle} onOpenCategory={openCategory} />}
       {view === 'article' && selectedArticle && (
         <ArticlePage article={selectedArticle} onBack={openExplore} onOpenArticle={openArticle} />
       )}
